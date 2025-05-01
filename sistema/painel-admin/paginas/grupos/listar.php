@@ -84,7 +84,7 @@ HTML;
 		$('#tabela_filter label input').focus();
 	});
 
-	function editar(id, nome) {
+	function editar(id, nome){
 
 		$('#id').val(id);
 		$('#nome').val(nome);

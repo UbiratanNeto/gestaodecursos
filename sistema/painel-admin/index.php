@@ -188,7 +188,7 @@ $senha_usuario = $res[0]['senha'];
 									<li><a href="index.php?pagina=cursos"><i class="fa fa-angle-right"></i> Cursos</a></li>
 									<li class="<?php echo $ocultar ?>"><a href="index.php?pagina=grupos"><i class="fa fa-angle-right"></i> Grupos</a></li>
 									<li class="<?php echo $ocultar ?>"><a href="index.php?pagina=categorias"><i class="fa fa-angle-right"></i> Categorias</a></li>
-									
+
 								</ul>
 							</li>
 
@@ -801,3 +801,22 @@ $senha_usuario = $res[0]['senha'];
 <script type="text/javascript" src="../js/mascaras.js"></script>
 <!-- Ajax para funcionar Mascaras JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style type="text/css">
+	.select2-selection__rendered {
+		line-height: 36px !important;
+		font-size: 16px !important;
+		color: #666666 !important;
+
+	}
+
+	.select2-selection {
+		height: 36px !important;
+		font-size: 16px !important;
+		color: #666666 !important;
+
+	}
+</style>

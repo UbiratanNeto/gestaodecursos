@@ -11,7 +11,7 @@ $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0 and $res[0]['id'] != $id){
-	echo 'Email já Cadastrado, escolha Outro!';
+	echo 'Categoria já cadastrada com este nome, escolha Outro!';
 	exit();
 }
 

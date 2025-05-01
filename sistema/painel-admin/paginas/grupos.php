@@ -10,7 +10,7 @@ if (@$_SESSION['nivel'] != 'Administrador') {
 ?>
 
 
-<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i> Nova Grupo</button>
+<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Novo Grupo</button>
 
 
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">
@@ -62,7 +62,5 @@ if (@$_SESSION['nivel'] != 'Administrador') {
 
 
 
-<script type="text/javascript">
-	var pag = "<?= $pag ?>"
-</script>
+<script type="text/javascript"> var pag = "<?= $pag ?>"</script>
 <script src="js/ajax.js"></script>
