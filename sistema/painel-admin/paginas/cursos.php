@@ -160,24 +160,25 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 					<div class="row">
 
-						<div class="col-md-6">
+						<div class="col-md-8 col-sm-12">
 							<div class="form-group">
 								<label>Descrição do Curso</label>
-								<textarea class="form-control" name="desc_longa" id="desc_longa"></textarea>
+								<textarea name="desc_longa" id="area" class="textarea"></textarea>
 							</div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Imagem</label>
-								<input type="file" name="foto" onChange="carregarImg();" id="foto">
+								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
 							</div>
-						</div>
-						<div class="col-md-2">
+
 							<div id="divImg">
-								<img src="img/cursos/sem-foto.png" width="100px" id="target">
+								<img src="img/cursos/sem-foto.png" width="140px" id="target">
 							</div>
+
 						</div>
+
 					</div>
 
 
@@ -234,3 +235,8 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		}
 	}
 </script>
+
+
+<script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+				

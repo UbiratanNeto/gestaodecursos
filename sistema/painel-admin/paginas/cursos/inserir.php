@@ -1,17 +1,42 @@
 <?php 
 require_once("../../../conexao.php");
-$tabela = 'categorias';
+$tabela = 'cursos';
+
+
+$ano_atual = date('Y');
+
+
+@session_start();
+$id_usuario = $_SESSION['id'];
 
 $nome = $_POST['nome'];
-$descricao = $_POST['descricao'];
+$desc_rapida = $_POST['desc_rapida'];
+$categoria = $_POST['categoria'];
+$grupo = $_POST['grupo'];
+$valor = $_POST['valor'];
+$valor = str_replace(',', '.', $valor);
+$carga = $_POST['carga'];
+$palavras = $_POST['palavras'];
+$pacote = $_POST['pacote'];
+$tecnologia = $_POST['tecnologia'];
+$sistema = $_POST['sistema'];
+$arquivo = $_POST['arquivo'];
+$link = $_POST['link'];
+$desc_longa = $_POST['desc_longa'];
+
+$nome_novo = strtolower( preg_replace("[^a-zA-Z0-9-]", "-", 
+        strtr(utf8_decode(trim($nome)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
+        "aaaaeeiooouuncAAAAEEIOOOUUNC-")) );
+$url = preg_replace('/[ -]+/' , '-' , $nome_novo);
+
 $id = $_POST['id'];
 
-//validar email duplicado
+//validar nome curso duplicado
 $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0 and $res[0]['id'] != $id){
-	echo 'Email já Cadastrado, escolha Outro!';
+	echo 'Curso já cadastrado com este nome, escolha outro!';
 	exit();
 }
 
@@ -29,7 +54,7 @@ if($total_reg > 0){
 $nome_img = date('d-m-Y H:i:s') .'-'.@$_FILES['foto']['name'];
 $nome_img = preg_replace('/[ :]+/' , '-' , $nome_img);
 
-$caminho = '../../img/categorias/' .$nome_img;
+$caminho = '../../img/cursos/' .$nome_img;
 
 $imagem_temp = @$_FILES['foto']['tmp_name']; 
 
@@ -39,7 +64,7 @@ if(@$_FILES['foto']['name'] != ""){
 	
 			//EXCLUO A FOTO ANTERIOR
 			if($foto != "sem-foto.png"){
-				@unlink('img/categorias/'.$foto);
+				@unlink('img/cursos/'.$foto);
 			}
 
 			$foto = $nome_img;
@@ -54,7 +79,7 @@ if(@$_FILES['foto']['name'] != ""){
 
 if($id == ""){
 
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, descricao = :descricao, imagem = '$foto'");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = : desc_rapida, desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = :categoria, descricao = :descricao, imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = :ano_atual, palavras = :palavras, grupo = '$grupo', nome_url = '$nome_url'");
 
 }else{
 	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, descricao = :descricao, imagem = '$foto' WHERE id = '$id'");
