@@ -54,7 +54,7 @@ if (@$_SESSION['nivel'] != 'Administrador') {
 						<div class="col-md-8">
 							<div class="form-group">
 								<label>Foto</label>
-								<input type="file" name="foto" onChange="carregarImg();" id="foto">
+								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
 							</div>
 						</div>
 						<div class="col-md-4">
