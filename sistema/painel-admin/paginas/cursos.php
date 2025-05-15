@@ -31,7 +31,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form method="post" id="form">
+			<form method="post" id="form-niceEdit">
 				<div class="modal-body">
 
 					<div class="row">
@@ -82,11 +82,9 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 								</select>
 							</div>
 						</div>
-
 					</div>
 
 					<div class="row">
-
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Valor</label>
@@ -108,8 +106,31 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 								<input type="text" class="form-control" name="palavras" id="palavras" placeholder="Ex: Curso de programação, desenvolvimento web, etc...">
 							</div>
 						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-8 col-sm-12">
+							<div class="form-group">
+								<label>Descrição do Curso</label>
+								<textarea name="desc_longa" id="area" class="textarea"></textarea>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Imagem</label>
+								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
+							</div>
+
+							<div id="divImg">
+								<img src="img/cursos/sem-foto.png" width="130px" id="target">
+							</div>
+
+						</div>
 
 					</div>
+
+
 
 					<div class="row">
 
@@ -158,28 +179,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 					</div>
 
-					<div class="row">
 
-						<div class="col-md-8 col-sm-12">
-							<div class="form-group">
-								<label>Descrição do Curso</label>
-								<textarea name="desc_longa" id="area" class="textarea"></textarea>
-							</div>
-						</div>
-
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Imagem</label>
-								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
-							</div>
-
-							<div id="divImg">
-								<img src="img/cursos/sem-foto.png" width="140px" id="target">
-							</div>
-
-						</div>
-
-					</div>
 
 
 					<br>
@@ -236,7 +236,40 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	}
 </script>
 
+<script type="text/javascript">
+	$("#form-niceEdit").submit(function() {
+		event.preventDefault();
+		nicEditors.findEditor('area').saveContent();
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir.php",
+			type: 'POST',
+			data: formData,
+
+			success: function(mensagem) {
+				$('#mensagem').text('');
+				$('#mensagem').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					$('#btn-fechar').click();
+					listar();
+				} else {
+					$('#mensagem').addClass('text-danger')
+					$('#mensagem').text(mensagem)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+</script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
-				
+<script type="text/javascript">
+	bkLib.onDomLoaded(nicEditors.allTextAreas);
+</script>

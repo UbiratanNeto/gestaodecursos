@@ -18,7 +18,7 @@ $valor = str_replace(',', '.', $valor);
 $carga = $_POST['carga'];
 $palavras = $_POST['palavras'];
 $pacote = $_POST['pacote'];
-$tecnologia = $_POST['tecnologia'];
+$tecnologias = $_POST['tecnologia'];
 $sistema = $_POST['sistema'];
 $arquivo = $_POST['arquivo'];
 $link = $_POST['link'];
@@ -79,15 +79,23 @@ if(@$_FILES['foto']['name'] != ""){
 
 if($id == ""){
 
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = : desc_rapida, desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = :categoria, descricao = :descricao, imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = :ano_atual, palavras = :palavras, grupo = '$grupo', nome_url = '$nome_url'");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida, desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias ");
 
 }else{
-	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, descricao = :descricao, imagem = '$foto' WHERE id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida, desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias WHERE id = '$id'");
 
 }
 
 $query->bindValue(":nome", "$nome");
-$query->bindValue(":descricao", "$descricao");
+$query->bindValue(":desc_rapida", "$desc_rapida");
+$query->bindValue(":desc_longa", "$desc_longa");
+$query->bindValue(":valor", "$valor");
+$query->bindValue(":carga", "$carga");
+$query->bindValue(":arquivo", "$arquivo");
+$query->bindValue(":palavras", "$palavras");
+$query->bindValue(":pacote", "$pacote");
+$query->bindValue(":link", "$link");
+$query->bindValue(":tecnologias", "$tecnologias");
 $query->execute();
 
 echo 'Salvo com Sucesso';
