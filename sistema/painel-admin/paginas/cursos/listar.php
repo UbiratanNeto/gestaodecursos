@@ -1,6 +1,6 @@
 <?php
 require_once("../../../conexao.php");
-$tabela = 'categorias';
+$tabela = 'cursos';
 
 echo <<<HTML
 <small>
@@ -15,8 +15,11 @@ if ($total_reg > 0) {
 	<thead> 
 	<tr> 
 	<th>Nome</th>
-	<th class="esc">Descrição</th> 
-	<th class="esc">Cursos</th>
+	<th class="esc">Valor</th> 
+	<th class="esc">Professor</th>
+	<th class="esc">Categoria</th>
+	<th class="esc">Alunos</th>
+	<th class="esc">Aulas</th>
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -28,26 +31,53 @@ HTML;
 		}
 		$id = $res[$i]['id'];
 		$nome = $res[$i]['nome'];
-		$descricao = $res[$i]['descricao'];
+		$desc_rapida = $res[$i]['desc_rapida'];
+		$desc_longa = $res[$i]['desc_longa'];
+		$valor = $res[$i]['valor'];
+		$professor = $res[$i]['professor'];
+		$categoria = $res[$i]['categoria'];
 		$foto = $res[$i]['imagem'];
+		$status = $res[$i]['status'];
+		$carga = $res[$i]['carga'];
+		$mensagem = $res[$i]['mensagem'];
+		$arquivo = $res[$i]['arquivo'];
+		$ano = $res[$i]['ano'];
+		$palavras = $res[$i]['palavras'];
+		$grupo = $res[$i]['grupo'];
+		$nome_url = $res[$i]['nome_url'];
+		$pacote = $res[$i]['pacote'];
+		$sistema = $res[$i]['sistema'];
+		$link = $res[$i]['link'];
+		$tecnologias = $res[$i]['tecnologias'];
 
-		$query2 = $pdo->query("SELECT * FROM cursos where categoria = '$id'");
+
+		$query2 = $pdo->query("SELECT * FROM usuarios where id = '$professor'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-		$cursos = @count($res2);
+		$nome_professor = $res2[0]['nome'];
 
+		$query2 = $pdo->query("SELECT * FROM categorias where id = '$categoria'");
+		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+		$nome_categoria = $res2[0]['nome'];
+
+		//FORMATAR VALORES
+		$valorF = number_format($valor, 2, ',', '.');
+		$desc_longa = str_replace('"', "**", $desc_longa);
+
+		
 		echo <<<HTML
 <tr> 
-		<td>
-		<img src="img/categorias/{$foto}" width="27px" class="mr-2">
-		{$nome}	
+		<td><img src="img/cursos/{$foto}" width="27px" class="mr-2">
+		{$nome}
 		</td> 
 		<td class="esc">
-		{$descricao}
+		R$ {$valorF}
 		</td>
-		<td class="esc">{$cursos}</td>		
-		
+		<td class="esc">{$nome_professor}</td>		
+		<td class="esc">{$nome_categoria}</td>
+		<td class="esc">0</td>
+		<td class="esc">0</td>	
 		<td>
-		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$descricao}','{$foto}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}','{$desc_longa}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 		<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
