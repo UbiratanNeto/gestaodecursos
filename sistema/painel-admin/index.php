@@ -178,7 +178,7 @@ $senha_usuario = $res[0]['senha'];
 								</ul>
 							</li>
 
-							<li class="treeview <?php echo $ocultar ?>">
+							<li class="treeview">
 								<a href="#">
 									<i class="fa fa-book"></i>
 									<span>Cursos / Pacotes</span>

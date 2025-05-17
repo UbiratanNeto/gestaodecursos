@@ -2,11 +2,19 @@
 require_once("../../../conexao.php");
 $tabela = 'cursos';
 
+@session_start();
+if($_SESSION['nivel'] == 'Administrador'){
+	$acesso = '';
+	$id_usuario = '%%';
+}else{
+	$acesso = 'ocultar';
+	$id_usuario = '%'.$_SESSION['id'].'%';
+}
 echo <<<HTML
 <small>
 HTML;
 
-$query = $pdo->query("SELECT * FROM $tabela ORDER BY id desc");
+$query = $pdo->query("SELECT * FROM $tabela where professor LIKE '$id_usuario' ORDER BY id desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {
@@ -59,13 +67,33 @@ HTML;
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$nome_categoria = $res2[0]['nome'];
 
+		$query2 = $pdo->query("SELECT * FROM grupos where id = '$grupo'");
+		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+		$nome_grupo = $res2[0]['nome'];
+
+
+		if ($status == 'Aprovado') {
+			$excluir = 'ocultar';
+			$icone = 'fa-check-square';
+			$titulo_link = 'Desaprovar Curso';
+			$acao = 'Aguardando';
+			$classe_linha = '';
+			$classe_square = 'verde';
+		} else {
+			$excluir = '';
+			$icone = 'fa-square-o';
+			$titulo_link = 'Aprovar Curso';
+			$acao = 'Aprovado';
+			$classe_linha = 'text-muted';
+			$classe_square = 'text-danger';
+		}
 		//FORMATAR VALORES
 		$valorF = number_format($valor, 2, ',', '.');
 		$desc_longa = str_replace('"', "**", $desc_longa);
 
-		
+
 		echo <<<HTML
-<tr> 
+<tr class="{$classe_linha}"> 
 		<td><img src="img/cursos/{$foto}" width="27px" class="mr-2">
 		{$nome}
 		</td> 
@@ -75,11 +103,13 @@ HTML;
 		<td class="esc">{$nome_professor}</td>		
 		<td class="esc">{$nome_categoria}</td>
 		<td class="esc">0</td>
-		<td class="esc">0</td>	
+		<td class="esc">0</td>
 		<td>
-		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}','{$desc_longa}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}', '{$valor}', '{$categoria}', '{$foto}', '{$carga}' , '{$arquivo}', '{$ano}', '{$palavras}','{$grupo}', '{$pacote}','{$sistema}', '{$link}' ,'{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
-		<li class="dropdown head-dpdn2" style="display: inline-block;">
+		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}','{$desc_longa}','{$valorF}','{$nome_professor}','{$nome_categoria}','{$foto}','{$status}', '{$carga}', '{$arquivo}', '{$ano}', '{$palavras}', '{$nome_grupo}', '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
+
+		<li class="dropdown head-dpdn2 {$excluir}" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
@@ -91,6 +121,7 @@ HTML;
 		</ul>
 		</li>
 
+		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 		</td>
 </tr>
 HTML;
@@ -121,15 +152,33 @@ HTML;
 		$('#tabela_filter label input').focus();
 	});
 
-	function editar(id, nome, descricao, foto) {
+	function editar(id, nome, desc_rapida, desc_longa, valor, categoria, foto, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+
+	for (let letra of desc_longa){  				
+			if (letra === '*'){
+				desc_longa = desc_longa.replace('**', '"');
+			}			
+		}	
 
 		$('#id').val(id);
 		$('#nome').val(nome);
-		$('#descricao').val(descricao);
-
+		$('#desc_rapida').val(desc_rapida);
+		nicEditors.findEditor("area").setContent(desc_longa);	
+		$('#valor').val(valor);
+		$('#categoria').val(categoria).change();		
+		$('#carga').val(carga);
+		$('#arquivo').val(arquivo);
+		$('#ano').val(ano);
+		$('#palavras').val(palavras);
+		$('#grupo').val(grupo).change();
+		$('#pacote').val(pacote);
+		$('#link').val(link);
+		$('#sistema').val(sistema).change();
+		$('#tecnologias').val(tecnologias);
+	
 		$('#foto').val('');
-		$('#target').attr('src', 'img/categorias/' + foto);
-
+		$('#target').attr('src','img/cursos/' + foto);		
+		
 		$('#tituloModal').text('Editar Registro');
 		$('#modalForm').modal('show');
 		$('#mensagem').text('');

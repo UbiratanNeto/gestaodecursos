@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('conexao.php');
 $senha = '123';
 $senha_crip = md5($senha);
@@ -6,7 +6,7 @@ $senha_crip = md5($senha);
 //VERIFICAR SE EXISTE UM USUÁRIO ADMINISTRADOR CRIADO NO BANCO
 $query = $pdo->query("SELECT * FROM usuarios where nivel = 'Administrador'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
-if(@count($res) == 0){
+if (@count($res) == 0) {
 	//CRIAR UM USUÁRIO ADMINISTRADOR CASO NÃO EXISTA NENHUM USUÁRIO
 	$pdo->query("INSERT INTO usuarios SET nome = 'Administrador', cpf = '000.000.000-00', usuario = '$email_sistema', senha='$senha', senha_crip = '$senha_crip', nivel = 'Administrador', foto = 'sem-perfil.jpg', id_pessoa = 1, ativo = 'Sim', data = curDate() ");
 
@@ -17,6 +17,7 @@ if(@count($res) == 0){
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,6 +36,7 @@ if(@count($res) == 0){
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
 	<div class="container-fluid">
@@ -74,7 +76,7 @@ if(@count($res) == 0){
 
 						<div class="copy-text">
 							<a href="" class="text-danger" data-toggle="modal" data-target="#modalRecuperar">
-								Recuperar Senha? 
+								Recuperar Senha?
 							</a>
 						</div>
 
@@ -87,8 +89,8 @@ if(@count($res) == 0){
 
 
 					</div>
-					<div class="col-md-8 banner-sec">   
-						<div class="signup__overlay"></div>          
+					<div class="col-md-8 banner-sec">
+						<div class="signup__overlay"></div>
 						<div class="banner">
 							<div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
 
@@ -117,6 +119,7 @@ if(@count($res) == 0){
 	</div>
 
 </body>
+
 </html>
 
 
@@ -134,8 +137,8 @@ if(@count($res) == 0){
 				</button>
 			</div>
 			<form id="form-cadastro">
-			<div class="modal-body">
-				
+				<div class="modal-body">
+
 					<div class="form-group">
 						<label for="exampleFormControlInput1"><small>Nome</small></label>
 						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome e Sobrenome" required>
@@ -155,20 +158,22 @@ if(@count($res) == 0){
 						<div class="form-group col-md-6">
 							<label for="exampleFormControlInput1"><small>Confirmar Senha</small></label>
 							<input type="password" class="form-control" id="conf_senha" name="conf_senha" required>
-						</div>					
+						</div>
 
 					</div>
 
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="termos" name="termos" value="Sim" required>
 						<label class="form-check-label" for="exampleCheck1"><small>Aceitar <a href="termos.php" target="_blank">Termos e Condições</a></small></label>
-					</div>					
-				
-				<br><small><div align="center" id="mensagem-cadastro"></div></small>	
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Cadastrar</button>
-			</div>
+					</div>
+
+					<br><small>
+						<div align="center" id="mensagem-cadastro"></div>
+					</small>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Cadastrar</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -191,20 +196,22 @@ if(@count($res) == 0){
 				</button>
 			</div>
 			<form id="form-recuperar">
-			<div class="modal-body">
-									
+				<div class="modal-body">
+
 
 					<div class="form-group">
 						<label for="exampleFormControlInput1"><small>E-mail ou CPF</small></label>
 						<input type="text" class="form-control" name="recuperar" placeholder="Seu E-mail Cadastrado ou CPF (Se tiver Inserido)" required>
-					</div>			
+					</div>
 
-				<br><small><div align="center" id="mensagem-recuperar"></div></small>	
-				
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Recuperar</button>
-			</div>
+					<br><small>
+						<div align="center" id="mensagem-recuperar"></div>
+					</small>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Recuperar</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -215,8 +222,8 @@ if(@count($res) == 0){
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
- <script type="text/javascript">
-	$("#form-cadastro").submit(function () {
+<script type="text/javascript">
+	$("#form-cadastro").submit(function() {
 		event.preventDefault();
 		var formData = new FormData(this);
 
@@ -225,15 +232,15 @@ if(@count($res) == 0){
 			type: 'POST',
 			data: formData,
 
-			success: function (mensagem) {
+			success: function(mensagem) {
 				$('#mensagem-cadastro').text('');
 				$('#mensagem-cadastro').removeClass()
 				if (mensagem.trim() == "Cadastrado com Sucesso") {
 					//$('#btn-fechar-usu').click();
 					$('#mensagem-cadastro').addClass('text-success')
-					$('#mensagem-cadastro').text(mensagem)	
+					$('#mensagem-cadastro').text(mensagem)
 					$('#usuario').val($('#email_cadastro').val())
-					$('#senha').val($('#senha_cadastro').val())				
+					$('#senha').val($('#senha_cadastro').val())
 
 				} else {
 
@@ -259,8 +266,8 @@ if(@count($res) == 0){
 
 
 
- <script type="text/javascript">
-	$("#form-recuperar").submit(function () {
+<script type="text/javascript">
+	$("#form-recuperar").submit(function() {
 		event.preventDefault();
 		var formData = new FormData(this);
 
@@ -269,25 +276,25 @@ if(@count($res) == 0){
 			type: 'POST',
 			data: formData,
 
-			success: function (mensagem) {
+			success: function(mensagem) {
 				$('#mensagem-recuperar').text('');
 				$('#mensagem-recuperar').removeClass()
 				if (mensagem.trim() == "") {
 					//$('#btn-fechar-usu').click();
 					$('#mensagem-recuperar').addClass('text-success')
-					$('#mensagem-recuperar').text('Senha Enviada para o Email!')						
+					$('#mensagem-recuperar').text('Senha Enviada para o Email!')
 
 				} else {
 
-					if(mensagem.trim() == "Não possui cadastro com este email ou cpf digitado!"){
+					if (mensagem.trim() == "Não possui cadastro com este email ou cpf digitado!") {
 						$('#mensagem-recuperar').addClass('text-danger')
 						$('#mensagem-recuperar').text(mensagem)
-					}else{
+					} else {
 						$('#mensagem-recuperar').addClass('text-danger')
 						$('#mensagem-recuperar').text('Você não está conectado a um servidor SMTP, pode ser que esteja em um servidor local (não é possível disparar e-mail no servidor local) ou o seu servidor de hospedagem está com este serviço desativado, precisa ativá-lo!')
 					}
 
-					
+
 				}
 
 
@@ -301,4 +308,3 @@ if(@count($res) == 0){
 
 	});
 </script>
-
