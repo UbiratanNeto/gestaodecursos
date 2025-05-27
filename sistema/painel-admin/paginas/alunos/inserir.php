@@ -59,7 +59,7 @@ if(@$_FILES['foto']['name'] != ""){
 	
 			//EXCLUO A FOTO ANTERIOR
 			if($foto != "sem-perfil.jpg"){
-				@unlink('img/perfil/'.$foto);
+				@unlink('../../img/perfil/'.$foto);
 			}
 
 			$foto = $nome_img;

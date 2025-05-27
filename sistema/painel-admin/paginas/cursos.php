@@ -144,7 +144,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Técnologias Usadas</label>
-								<input type="text" class="form-control" name="tecnologia" id="tecnologia" placeholder="Ex: Html, Css, Banco de dados Mysql etc...">
+								<input type="text" class="form-control" name="tecnologias" id="tecnologias" placeholder="Ex: Html, Css, Banco de dados Mysql etc...">
 							</div>
 						</div>
 
@@ -194,6 +194,126 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 					<button type="submit" class="btn btn-primary">Salvar</button>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- ModalMostrar -->
+<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="tituloModal"><span id="nome_mostrar"> </span> - Status : <span id="status_mostrar"> </span></h4>
+				<button id="btn-fechar-excluir" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+				<div class="modal-body">			
+					
+
+
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						<div class="col-md-5">							
+							<span><b>Subtítulo: </b></span>
+							<span id="desc_rapida_mostrar"></span>							
+						</div>
+						<div class="col-md-2">							
+							<span><b>Valor: </b></span>
+							<span id="valor_mostrar"></span>
+						</div>
+						<div class="col-md-5">							
+							<span><b>Professor: </b></span>
+							<span id="professor_mostrar"></span>
+						</div>
+						
+					</div>
+
+
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						<div class="col-md-4">							
+							<span><b>Categoria: </b></span>
+							<span id="categoria_mostrar"></span>
+						</div>
+						<div class="col-md-3">							
+							<span><b>Grupo: </b></span>
+							<span id="grupo_mostrar"></span>
+						</div>
+						<div class="col-md-3">							
+							<span><b>Carga: </b></span>
+							<span id="carga_mostrar"></span> Horas
+						</div>
+						<div class="col-md-2">							
+							<span><b>Ano: </b></span>
+							<span id="ano_mostrar"></span>
+						</div>
+					</div>
+
+					
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						<div class="col-md-12">			
+							<span><b>Palavras Chaves: </b></span>
+							<span id="palavras_mostrar"></span>
+						</div>
+					</div>
+
+
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						<div class="col-md-4">							
+							<span><b>Pacote: </b></span>
+							<a target="_blank" href="" id="linkpacote"> <span id="pacote_mostrar"></span> </a>							
+						</div>
+						<div class="col-md-2">							
+							<span><b>Sistema: </b></span>
+							<span id="sistema_mostrar"></span>
+						</div>
+						<div class="col-md-6">							
+							<span><b>Técnologias: </b></span>
+							<span id="tecnologias_mostrar"></span>
+						</div>
+						
+					</div>
+
+
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						<div class="col-md-12">							
+							<span><b>Link Arquivos (Material Apoio Drive): </b></span>
+							<a target="_blank" href="" id="linkarquivo"><small> <span id="arquivo_mostrar"></span></small> </a>							
+						</div>			
+						
+						
+					</div>
+
+
+					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						
+						<div class="col-md-12">							
+							<span><b>Link do Curso (Drive): </b></span>
+							<a target="_blank" href="" id="linkcurso"> <small><span id="link_mostrar"></span></small> </a>							
+						</div>
+						
+						
+					</div>
+					
+					
+
+					<div class="row">
+						<div class="col-md-8">							
+							<span><b>Descrição do Curso: </b></span>
+							<small><span id="desc_longa_mostrar"></span></small> </a>							
+						</div>
+
+						<div class="col-md-4" align="center">		
+							<img  width="200px" id="target_mostrar">	
+						</div>
+					</div>
+					
+								
+
+				</div>
+
+
 		</div>
 	</div>
 </div>
