@@ -18,7 +18,7 @@ $valor = str_replace(',', '.', $valor);
 $carga = $_POST['carga'];
 $palavras = $_POST['palavras'];
 $pacote = $_POST['pacote'];
-$tecnologias = $_POST['tecnologia'];
+$tecnologias = $_POST['tecnologias'];
 $sistema = $_POST['sistema'];
 $arquivo = $_POST['arquivo'];
 $link = $_POST['link'];
@@ -64,7 +64,7 @@ if(@$_FILES['foto']['name'] != ""){
 	
 			//EXCLUO A FOTO ANTERIOR
 			if($foto != "sem-foto.png"){
-				@unlink('img/cursos/'.$foto);
+				@unlink('../../img/cursos/'.$foto);
 			}
 
 			$foto = $nome_img;

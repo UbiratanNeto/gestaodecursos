@@ -170,10 +170,10 @@ HTML;
 		$('#arquivo').val(arquivo);
 		$('#ano').val(ano);
 		$('#palavras').val(palavras);
-		$('#grupo').val(grupo).change();
+		$('#grupo').val(grupo).change();	;
 		$('#pacote').val(pacote);
 		$('#link').val(link);
-		$('#sistema').val(sistema).change();
+		$('#sistema').val(sistema).change();	;
 		$('#tecnologias').val(tecnologias);
 	
 		$('#foto').val('');
@@ -185,11 +185,46 @@ HTML;
 	}
 
 
-	function limparCampos() {
+	
+	function mostrar(nome, desc_rapida, desc_longa, valor, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias){	
+		
+		$('#nome_mostrar').text(nome);
+		$('#desc_rapida_mostrar').text(desc_rapida);
+		$('#desc_longa_mostrar').html(desc_longa);
+		$('#valor_mostrar').text(valor);
+		$('#professor_mostrar').text(professor);
+		$('#categoria_mostrar').text(categoria);
+		$('#status_mostrar').text(status);
+		$('#carga_mostrar').text(carga);
+		$('#arquivo_mostrar').text(arquivo);
+		$('#ano_mostrar').text(ano);
+		$('#palavras_mostrar').text(palavras);
+		$('#grupo_mostrar').text(grupo);
+		$('#pacote_mostrar').text(pacote);	
+		$('#sistema_mostrar').text(sistema);	
+		$('#link_mostrar').text(link);			
+		$('#tecnologias_mostrar').text(tecnologias);	
+		$('#target_mostrar').attr('src','img/cursos/' + foto);
+
+		$('#modalMostrar').modal('show');
+		
+	}
+
+
+		function limparCampos(){
 		$('#id').val('');
 		$('#nome').val('');
-		$('#descricao').val('');
+		$('#desc_rapida').val('');
+		nicEditors.findEditor("area").setContent('');				
+		$('#valor').val('');	
+		$('#carga').val('');	
+		$('#palavras').val('');	
+		$('#pacote').val('');	
+		$('#tecnologias').val('');	
+		$('#arquivo').val('');	
+		$('#link').val('');		
+		nicEditors.findEditor("mensagem_mensagem").setContent('');		
 		$('#foto').val('');
-		$('#target').attr('src', 'img/categorias/sem-foto.png');
+		$('#target').attr('src','img/cursos/sem-foto.png');		
 	}
 </script>
