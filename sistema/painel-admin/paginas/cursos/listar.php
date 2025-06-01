@@ -206,6 +206,10 @@ HTML;
 		$('#tecnologias_mostrar').text(tecnologias);	
 		$('#target_mostrar').attr('src','img/cursos/' + foto);
 
+		$('#linkpacote').attr('href','<?=$url_sistema?>' + pacote);
+		$('#linkcurso').attr('href', link);
+		$('#linkarquivo').attr('href', arquivo);
+
 		$('#modalMostrar').modal('show');
 		
 	}
