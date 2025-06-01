@@ -258,7 +258,6 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 						</div>
 					</div>
 
-
 					<div class="row" style="border-bottom: 1px solid #cac7c7;">
 						<div class="col-md-4">							
 							<span><b>Pacote: </b></span>
@@ -269,34 +268,27 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<span id="sistema_mostrar"></span>
 						</div>
 						<div class="col-md-6">							
-							<span><b>Técnologias: </b></span>
+							<span><b>Tecnologias: </b></span>
 							<span id="tecnologias_mostrar"></span>
 						</div>
-						
 					</div>
 
-
 					<div class="row" style="border-bottom: 1px solid #cac7c7;">
+						
 						<div class="col-md-12">							
 							<span><b>Link Arquivos (Material Apoio Drive): </b></span>
-							<a target="_blank" href="" id="linkarquivo"><small> <span id="arquivo_mostrar"></span></small> </a>							
-						</div>			
-						
-						
+							<a target="_blank" href="" id="linkarquivo"> <span id="arquivo_mostrar"></span> </a>							
+						</div>
 					</div>
-
 
 					<div class="row" style="border-bottom: 1px solid #cac7c7;">
 						
-						<div class="col-md-12">							
-							<span><b>Link do Curso (Drive): </b></span>
-							<a target="_blank" href="" id="linkcurso"> <small><span id="link_mostrar"></span></small> </a>							
+						<div class="col-md-12">		
+							<span><b>Link do curso (Drive): </b></span>
+							<a target="_blank" href="" id="linkcurso"> <span id="link_mostrar"></span> </a>		
 						</div>
 						
-						
 					</div>
-					
-					
 
 					<div class="row">
 						<div class="col-md-8">							
@@ -308,9 +300,6 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<img  width="200px" id="target_mostrar">	
 						</div>
 					</div>
-					
-								
-
 				</div>
 
 
@@ -321,8 +310,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 
-<script type="text/javascript">
-	var pag = "<?= $pag ?>"
+<script type="text/javascript">var pag = "<?= $pag ?>"
 </script>
 <script src="js/ajax.js"></script>
 
