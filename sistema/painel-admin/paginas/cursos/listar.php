@@ -122,6 +122,9 @@ HTML;
 		</li>
 
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
+
+		<big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-comment-o text-warning"></i></a></big>
+
 		</td>
 </tr>
 HTML;
@@ -211,6 +214,16 @@ HTML;
 		$('#linkarquivo').attr('href', arquivo);
 
 		$('#modalMostrar').modal('show');
+		
+	}
+
+	function obs(id, nome, mensagem){	
+		
+		$('#nome_mensagem').text(nome);
+		$('#id_mensagem').val(id);
+		nicEditors.findEditor("mensagem_mensagem").setContent(mensagem);
+
+		$('#modalMensagem').modal('show');
 		
 	}
 
