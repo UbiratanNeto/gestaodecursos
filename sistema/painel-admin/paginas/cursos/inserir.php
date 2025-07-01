@@ -31,6 +31,10 @@ $url = preg_replace('/[ -]+/' , '-' , $nome_novo);
 
 $id = $_POST['id'];
 
+//Retirar espaços vazios e possíveis aspas simples do textarea
+$desc_longa = str_replace(array("\n", "\r", "'"), ' ', $desc_longa);
+
+
 //validar nome curso duplicado
 $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
