@@ -87,6 +87,12 @@ HTML;
 			$classe_linha = 'text-muted';
 			$classe_square = 'text-danger';
 		}
+
+		if($mensagem != ''){
+			$classe_mensagem = 'warning';
+		}else{
+			$classe_mensagem = 'text-warning';
+		}
 		//FORMATAR VALORES
 		$valorF = number_format($valor, 2, ',', '.');
 		$desc_longa = str_replace('"', "**", $desc_longa);
@@ -95,7 +101,10 @@ HTML;
 		echo <<<HTML
 <tr class="{$classe_linha}"> 
 		<td><img src="img/cursos/{$foto}" width="27px" class="mr-2">
+		<a href="#" onclick="aulas('{$id}', '{$nome}')" class="cinza_escuro">
 		{$nome}
+		<small><i class="fa fa-video-camera text-dark"></i></small>
+		</a>
 		</td> 
 		<td class="esc">
 		R$ {$valorF}
@@ -123,7 +132,7 @@ HTML;
 
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 
-		<big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-comment-o text-warning"></i></a></big>
+		<big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-comment-o {$classe_mensagem}"></i></a></big>
 
 		</td>
 </tr>
@@ -243,5 +252,11 @@ HTML;
 		nicEditors.findEditor("mensagem_mensagem").setContent('');		
 		$('#foto').val('');
 		$('#target').attr('src','img/cursos/sem-foto.png');		
+	}
+
+	function aulas(id, nome){
+		$('#id_aula').val(id);
+		$('#nome_aula').text(nome);
+		$('#modalAulas').modal('show');
 	}
 </script>

@@ -10458,3 +10458,11 @@ h4.asd label {
     width: 340px;
   }
 }
+
+.warning{
+  color: #d9830b;
+}
+
+.cinza_escuro{
+  color:#4f4f4e;
+}
