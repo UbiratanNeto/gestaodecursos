@@ -305,7 +305,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	</div>
 </div>
 
-<!-- ModalMensagem -->
+<!-- Modal Mensagem -->
 <div class="modal fade" id="modalMensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -344,6 +344,82 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal Aulas -->
+<div class="modal fade" id="modalAulas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span id="nome_aula"> </span></h4>
+				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<form id="form-aulas">
+
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label>Num Aula</label>
+									<input type="number" name="num_aula" id="num_aula" class="form-control">
+								</div>
+							</div>
+
+							<div class="col-md-9">
+								<div class="form-group">
+									<label>Nome Aula</label>
+									<input type="text" name="nome_aula" id="nome_aula" class="form-control">
+								</div>
+							</div>
+
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Link <small>(Url Incorporada ou Link do Drive)</small></label>
+									<input type="text" name="link_aula" id="link_aula" class="form-control">
+								</div>
+							</div>
+
+
+							<div class="col-md-9">
+								<div class="form-group">
+									<label>Nome Sessão <small>(caso exista)</small></label>
+									<input type="text" name="sessao_aula" id="sessao_aula" class="form-control" placeholder="Ex: básico, módulo 1, etc">
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<button type="submit" class="btn btn-primary" style="margin-top:15px;">Salvar</button>
+							</div>
+
+						</div>
+
+				</form>
+
+				<div class="col-md-6">
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+	</div>
+
+	<div class="modal-footer">
+
+	</div>
+
+	</form>
 
 
 
