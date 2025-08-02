@@ -71,6 +71,9 @@ HTML;
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$nome_grupo = $res2[0]['nome'];
 
+		$query2 = $pdo->query("SELECT * FROM AULAS where curso = '$id'");
+		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+		$aulas = @count($res2);
 
 		if ($status == 'Aprovado') {
 			$excluir = 'ocultar';
@@ -101,7 +104,7 @@ HTML;
 		echo <<<HTML
 <tr class="{$classe_linha}"> 
 		<td><img src="img/cursos/{$foto}" width="27px" class="mr-2">
-		<a href="#" onclick="aulas('{$id}', '{$nome}')" class="cinza_escuro">
+		<a href="#" onclick="aulas('{$id}', '{$nome}', '{$aulas}')" class="cinza_escuro">
 		{$nome}
 		<small><i class="fa fa-video-camera text-dark"></i></small>
 		</a>
@@ -112,7 +115,7 @@ HTML;
 		<td class="esc">{$nome_professor}</td>		
 		<td class="esc">{$nome_categoria}</td>
 		<td class="esc">0</td>
-		<td class="esc">0</td>
+		<td class="esc">{$aulas}</td>
 		<td>
 		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}', '{$valor}', '{$categoria}', '{$foto}', '{$carga}' , '{$arquivo}', '{$ano}', '{$palavras}','{$grupo}', '{$pacote}','{$sistema}', '{$link}' ,'{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
@@ -254,9 +257,11 @@ HTML;
 		$('#target').attr('src','img/cursos/sem-foto.png');		
 	}
 
-	function aulas(id, nome){
-		$('#id_aula').val(id);
+	function aulas(id, nome, aulas){
+		$('#id-aulas').val(id);
 		$('#nome_aula').text(nome);
+		$('#aulas_aula').text(aulas);
 		$('#modalAulas').modal('show');
+		listarAulas();
 	}
 </script>
