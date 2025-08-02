@@ -351,7 +351,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><span id="nome_aula"> </span></h4>
+				<h4 class="modal-title"><span id="nome_aula"> </span> - Aulas <span id="aulas_aula"> </span></h4>
 				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -366,14 +366,14 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Num Aula</label>
-									<input type="number" name="num_aula" id="num_aula" class="form-control">
+									<input type="number" name="num_aula" id="num_aula" class="form-control" required>
 								</div>
 							</div>
 
 							<div class="col-md-9">
 								<div class="form-group">
 									<label>Nome Aula</label>
-									<input type="text" name="nome_aula" id="nome_aula" class="form-control">
+									<input type="text" name="nome_aula" id="nome_aula" class="form-control" required>
 								</div>
 							</div>
 
@@ -393,8 +393,10 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 								</div>
 							</div>
 
+							<input type="text" name="id" id="id-aulas">
+
 							<div class="col-md-3">
-								<button type="submit" class="btn btn-primary" style="margin-top:15px;">Salvar</button>
+								<button type="submit" class="btn btn-primary" style="margin-top:21px;">Salvar</button>
 							</div>
 
 						</div>
@@ -402,7 +404,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 				</form>
 
 				<div class="col-md-6">
-
+					<div id="listar-aulas"></div>
 				</div>
 			</div>
 		</div>
@@ -527,7 +529,22 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	});
 </script>
 
+<script type="text/javascript">
+	function listarAulas() {
+		var id_curso = $('#id-aulas').val();
+    $.ajax({
+        url: 'paginas/' + pag + "/listar-aulas.php",
+        method: 'POST',
+        data: {id_curso},
+        dataType: "text",
 
+        success: function (result) {
+            $("#listar-aulas").html(result);
+            $('#mensagem-excluir-aulas').text('');
+        }
+    });
+}
+</script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script type="text/javascript">
