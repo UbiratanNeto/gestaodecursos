@@ -71,7 +71,7 @@ HTML;
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$nome_grupo = $res2[0]['nome'];
 
-		$query2 = $pdo->query("SELECT * FROM AULAS where curso = '$id'");
+		$query2 = $pdo->query("SELECT * FROM aulas where curso = '$id'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$aulas = @count($res2);
 
@@ -259,8 +259,7 @@ HTML;
 
 	function aulas(id, nome, aulas){
 		$('#id-aulas').val(id);
-		$('#nome_aula').text(nome);
-		$('#aulas_aula').text(aulas);
+		$('#nome_aula_titulo').text(nome);
 		$('#modalAulas').modal('show');
 		listarAulas();
 	}

@@ -8,15 +8,16 @@ echo <<<HTML
 <small>
 HTML;
 
-$query = $pdo->query("SELECT * FROM $tabela where curso = '$id_curso' ORDER BY id asc");
+$query = $pdo->query("SELECT * FROM $tabela where curso = '$id_curso' ORDER BY num_aula desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
+$ultima_aula = $res[0]['num_aula'] + 1;
 $total_reg = @count($res);
 if ($total_reg > 0) {
 	echo <<<HTML
-	<table class="table table-hover" id="tabela2>
+	<small><table class="table table-hover" id="tabela2">
 	<thead> 
 	<tr> 
-	<th>Num Aula</th> 
+	<th>Aula</th> 
 	<th class="">Nome</th>
     <th class="esc">Link</th>
 	<th>Ações</th>
@@ -31,8 +32,11 @@ HTML;
 		$nome = $res[$i]['nome'];
         $num_aula = $res[$i]['num_aula'];
         $link = $res[$i]['link'];
+		$sessao = $res[$i]['sessao'];
 
-        $linkF = mb_strimwidth($link, 0, 20, "...");
+        $linkF = mb_strimwidth($link, 0, 15, "...");
+
+
 
 		echo <<<HTML
 <tr> 
@@ -40,11 +44,10 @@ HTML;
 		{$num_aula}	
 		</td>
 		<td class="esc">{$nome}</td>
-        <td class="esc">{$nome}</td>
-        <td class="esc">{$linkF}</td>	
+        <td class="esc"><a title="{$link}" href="{$link}" target="_blank">{$linkF}</a></td>	
 		
 		<td>
-		<big><a href="#" onclick="editar('{$id}', '{$nome}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+		<big><a href="#" onclick="editarAula('{$id}', '{$num_aula}', '{$nome}', '{$link}', '{$sessao}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 		<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -52,7 +55,7 @@ HTML;
 		<ul class="dropdown-menu" style="margin-left:-230px;">
 		<li>
 		<div class="notification_desc2">
-		<p>Confirmar Exclusão? <a href="#" onclick="excluir('{$id}')"><span class="text-danger">Sim</span></a></p>
+		<p>Confirmar Exclusão? <a href="#" onclick="excluirAula('{$id}')"><span class="text-danger">Sim</span></a></p>
 		</div>
 		</li>										
 		</ul>
@@ -66,7 +69,8 @@ HTML;
 	echo <<<HTML
 </tbody>
 <small><div align="center" id="mensagem-excluir-aulas"></div></small>
-</table>	
+</table>
+</small>
 HTML;
 } else {
 	echo 'Não possui nenhuma aula cadastrada!';
@@ -84,20 +88,43 @@ HTML;
 		
 	});
 
-	function editar(id, nome){
+	function editarAula(id, aula, nome, link, sessao){
 
-		$('#id').val(id);
-		$('#nome').val(nome);
-
-		$('#tituloModal').text('Editar Registro');
-		$('#modalForm').modal('show');
-		$('#mensagem').text('');
+		$('#id-da-aula').val(id);
+		$('#link_aula').val(link);
+		$('#nome_aula').val(nome);
+		$('#num_aula').val(aula);
 	}
 
 
-	function limparCampos() {
-		$('#id').val('');
-		$('#nome').val('');
+	function limparCamposAulas() {
+		$('#id-da-aula').val('');
+		$('#link_aula').val('');
+		$('#nome_aula').val('');
+		$('#num_aula').val('<?=$ultima_aula?>');
+		$('#aulas_aula').text('<?=$total_reg?>');
 		
 	}
+
+	function excluirAula(id) {
+    $.ajax({
+        url: 'paginas/' + pag + "/excluir-aulas.php",
+        method: 'POST',
+        data: { id },
+        dataType: "text",
+
+        success: function (mensagem) {
+            if (mensagem.trim() == "Excluído com Sucesso") {
+                listarAulas();
+            } else {
+                $('#mensagem-excluir-aulas').addClass('text-danger')
+                $('#mensagem-excluir-aulas').text(mensagem)
+            }
+
+        },
+
+    });
+}
+
+
 </script>
