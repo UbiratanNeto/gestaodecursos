@@ -325,9 +325,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 					</div>
 
 					<input type="hidden" name="id" id="id_mensagem">
-					<small>
-						<div id="mensagem_msg" align="center" class="mt-3"></div>
-					</small>
+
 
 
 
@@ -351,77 +349,73 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><span id="nome_aula"> </span> - Aulas <span id="aulas_aula"> </span></h4>
+				<h4 class="modal-title"><span id="nome_aula_titulo"> </span> - <span id="aulas_aula"> </span> Aulas </h4>
 				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
 			<div class="modal-body">
-				<form id="form-aulas">
+				<div class="row">
+					<div class="col-md-6">
+						<form id="form-aulas">
 
-					<div class="row">
-						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label>Num Aula</label>
+										<input type="number" name="num_aula" id="num_aula" class="form-control" required>
+									</div>
+								</div>
 
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Num Aula</label>
-									<input type="number" name="num_aula" id="num_aula" class="form-control" required>
+								<div class="col-md-9">
+									<div class="form-group">
+										<label>Nome Aula</label>
+										<input type="text" name="nome_aula" id="nome_aula" class="form-control" required>
+									</div>
 								</div>
 							</div>
 
-							<div class="col-md-9">
-								<div class="form-group">
-									<label>Nome Aula</label>
-									<input type="text" name="nome_aula" id="nome_aula" class="form-control" required>
+							
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Link <small>(Url Incorporada ou Link do Drive)</small></label>
+										<input type="text" name="link_aula" id="link_aula" class="form-control">
+									</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<label>Nome Sessão <small>(caso exista)</small></label>
+										<input type="text" name="sessao_aula" id="sessao_aula" class="form-control" placeholder="Ex: básico, módulo 1, etc">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-primary" style="margin-top:21px;">Salvar</button>
 								</div>
 							</div>
 
+							<input type="hidden" name="id" id="id-aulas">
+							<input type="hidden" name="id_aula" id="id-da-aula">
 
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Link <small>(Url Incorporada ou Link do Drive)</small></label>
-									<input type="text" name="link_aula" id="link_aula" class="form-control">
-								</div>
-							</div>
+							<small>
+								<div id="mensagem_aulas" align="center" class="mt-3"></div>
+							</small>
+						</form>
 
+					</div>
 
-							<div class="col-md-9">
-								<div class="form-group">
-									<label>Nome Sessão <small>(caso exista)</small></label>
-									<input type="text" name="sessao_aula" id="sessao_aula" class="form-control" placeholder="Ex: básico, módulo 1, etc">
-								</div>
-							</div>
-
-							<input type="text" name="id" id="id-aulas">
-
-							<div class="col-md-3">
-								<button type="submit" class="btn btn-primary" style="margin-top:21px;">Salvar</button>
-							</div>
-
-						</div>
-
-				</form>
-
-				<div class="col-md-6">
-					<div id="listar-aulas"></div>
+					<div class="col-md-6">
+						<div id="listar-aulas"></div>
+					</div>
 				</div>
+
+
+
 			</div>
 		</div>
-
-
-
-
-
-
-
 	</div>
-
-	<div class="modal-footer">
-
-	</div>
-
-	</form>
+</div>
 
 
 
@@ -532,18 +526,48 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 <script type="text/javascript">
 	function listarAulas() {
 		var id_curso = $('#id-aulas').val();
-    $.ajax({
-        url: 'paginas/' + pag + "/listar-aulas.php",
-        method: 'POST',
-        data: {id_curso},
-        dataType: "text",
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-aulas.php",
+			method: 'POST',
+			data: {
+				id_curso
+			},
+			dataType: "text",
 
-        success: function (result) {
-            $("#listar-aulas").html(result);
-            $('#mensagem-excluir-aulas').text('');
-        }
-    });
-}
+			success: function(result) {
+				$("#listar-aulas").html(result);
+				$('#mensagem-excluir-aulas').text('');
+				$('#mensagem-aulas').text('');
+				limparCamposAulas();
+			}
+		});
+	}
+</script>
+
+<script type="text/javascript">
+	$("#form-aulas").submit(function() {
+		event.preventDefault();
+		var formData = new FormData(this);
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir-aulas.php",
+			type: 'POST',
+			data: formData,
+			success: function(mensagem) {
+				$('#mensagem_aulas').text('');
+				$('#mensagem_aulas').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					//$('#btn-fechar').click();
+					listarAulas();
+				} else {
+					$('#mensagem_aulas').addClass('text-danger')
+					$('#mensagem_aulas').text(mensagem)
+				}
+			},
+			cache: false,
+			contentType: false,
+			processData: false,
+		});
+	});
 </script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
